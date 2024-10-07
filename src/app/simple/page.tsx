@@ -1,7 +1,9 @@
+import { postAction } from "./postAction";
+
 export default function Page() {
   return (
     <div className="w-2/4 mt-72 m-auto">
-      <form className="flex gap-3">
+      <form className="flex gap-3" action={postAction}>
         <input
           type="text"
           name="name"
