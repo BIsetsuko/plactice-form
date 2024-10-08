@@ -1,11 +1,23 @@
 "use server";
 
-import { redirect } from "next/navigation";
+type ValidationState = {
+  errors?: {
+    name?: string;
+  };
+};
 
-export async function postActionValidate(formData: FormData) {
+export async function postActionValidate(
+  prev: ValidationState | undefined,
+  formData: FormData
+) {
   const name = formData.get("name");
-  // バリデーション
+
+  // バリデーション処理
   if (!name) {
-    throw new Error("名前を入力してください");
+    return {
+      errors: {
+        name: "名前を入力してください",
+      },
+    };
   }
 }
