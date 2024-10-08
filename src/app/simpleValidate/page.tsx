@@ -1,7 +1,17 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { postActionValidate } from "./postActionValidate";
+
+// useFormStatusは別コンポーネントに切り出すことで機能する
+function Submit() {
+  const status = useFormStatus();
+  return (
+    <button type="submit" disabled={status.pending} className="bg-blue-700 text-white p-2 rounded-md">
+      {status.pending ? "送信中..." : "送信"}
+    </button>
+  );
+}
 
 export default function Page() {
   const [result, dispatch] = useFormState(postActionValidate, {
@@ -17,9 +27,7 @@ export default function Page() {
           name="name"
           className="w-96 border border-neutral-600 bg-blue-50 rounded-md p-2 mr-2"
         />
-        <button type="submit" className="bg-blue-700 text-white p-2 rounded-md">
-          送信
-        </button>
+        <Submit />
       </form>
     </div>
   );
